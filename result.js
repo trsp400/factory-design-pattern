@@ -1,21 +1,32 @@
+import { DeltaNegative, DeltaPositive, DeltaZero } from './classes'
+
 const createResult = () => {
-    const start = (a, b, delta) => {
-      console.log('[result] Starting...');
-      const x1 = (-b + Math.sqrt(delta)) / 2*a;
-      const x2 = (-b - Math.sqrt(delta)) / 2*a;
-      console.log('[result] Starting done!');
-      return { x1, x2 };
+  const start = (a, b, delta) => {
+    console.log('[result] Starting...');
+
+    // let result = {}, x1, x2;
+
+    const types = {
+      zero: DeltaZero,
+      positive: DeltaPositive,
+      negative: DeltaNegative,
     }
-  
-    const stop = () => {
-      console.log('[result] Stopping...');
-      console.log('[result] Stopping done!');
-    }
-  
-    return {
-      start,
-      stop,
-    }
+
+    const deltaProps = new (types[delta.deltaType])(delta.data, a, b)
+
+    console.log('[result] Starting done!');
+    return deltaProps.handle();
   }
-  
-  export default createResult;
+
+  const stop = () => {
+    console.log('[result] Stopping...');
+    console.log('[result] Stopping done!');
+  }
+
+  return {
+    start,
+    stop,
+  }
+}
+
+export default createResult;

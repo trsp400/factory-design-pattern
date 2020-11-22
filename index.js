@@ -3,7 +3,7 @@ import createCore from './core';
 const core = createCore();
 
 try {
-  const result = core.start(1, 12, -13);
+  const result = core.start(4, -4, 1);
   console.log(result)
   core.stop();
 } catch(error) {
